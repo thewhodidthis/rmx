@@ -1,0 +1,5 @@
+Makefile
+.cvsignore
+*.txt
+*.xml*
+gophermap*
