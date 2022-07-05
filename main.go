@@ -3,7 +3,6 @@ package main
 import (
 	_ "embed"
 	"encoding/xml"
-	// "fmt"
 	"io"
 	"log"
 	"math/rand"
