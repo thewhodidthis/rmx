@@ -1,7 +1,9 @@
 package main
 
 import (
+	"crypto/sha1"
 	_ "embed"
+	"encoding/hex"
 	"encoding/xml"
 	"io"
 	"log"
@@ -104,12 +106,20 @@ func main() {
 
 	t := template.Must(template.New("default").Parse(tmpl))
 	d := strings.Join(v, " ")
+
+	s := sha1.New()
+	s.Write([]byte(d))
+
+	h := hex.EncodeToString(s.Sum(nil))
+
 	p := struct {
-		Date time.Time
+		Date    time.Time
 		Content string
+		Title   string
 	}{
-		Date: time.Now(),
+		Date:    time.Now(),
 		Content: d,
+		Title:   h,
 	}
 
 	if err := t.Execute(os.Stdout, p); err != nil {
