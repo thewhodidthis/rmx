@@ -18,7 +18,7 @@ import (
 )
 
 //go:embed post.txt.tmpl
-var tmpl string
+var post string
 
 type feed struct {
 	XMLName xml.Name `xml:"feed"`
@@ -104,13 +104,11 @@ func main() {
 		v[i], v[j] = v[j], v[i]
 	})
 
-	t := template.Must(template.New("default").Parse(tmpl))
-	d := strings.Join(v, " ")
-
 	s := sha1.New()
-	s.Write([]byte(d))
+	s.Write([]byte(u))
 
-	h := hex.EncodeToString(s.Sum(nil))
+	t := template.Must(template.New("default").Parse(post))
+	d := strings.Join(v, " ")
 
 	p := struct {
 		Date    time.Time
@@ -119,7 +117,7 @@ func main() {
 	}{
 		Date:    time.Now(),
 		Content: d,
-		Title:   h,
+		Title:   hex.EncodeToString(s.Sum(nil)),
 	}
 
 	if err := t.Execute(os.Stdout, p); err != nil {
