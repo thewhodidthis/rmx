@@ -1,0 +1,25 @@
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>R*M*X</title>
+    <link>gopher://tilde.institute/~thewhodidthis/</link>
+    <description>The Daily Nonsensical The Gazette Remix</description>
+    <language>en</language>
+    <webMaster>&#116;&#104;&#101;&#119;&#104;&#111;&#100;&#105;&#100;&#116;&#104;&#105;&#115;&#64;&#102;&#97;&#115;&#116;&#109;&#97;&#105;&#108;&#46;&#99;&#111;&#109; (Thepersonwhodidthis)</webMaster>
+    <atom:link href="gopher://tilde.institute/~thewhodidthis/feed.xml" rel="self" type="application/rss+xml"/>
+    {{- range $i, $info := .List}}
+    <item>
+      {{- if lt $i (len $a)}}
+      {{with $t := index $a $i}}<title>{{$t}}</title>{{end}}
+      {{- else}}
+      <title>{{.Name}}</title>
+      {{- end}}
+      <link>gopher://tilde.institute/~thewhodidthis/{{.Name}}</link>
+      <pubDate>{{.ModTime.Format "02 Jan 2006 15:04:05 -0700"}}</pubDate>
+      <guid>gopher://tilde.institute/~thewhodidthis/{{.Name}}</guid>
+      {{- if lt $i (len $b)}}
+      {{with $t := index $b $i}}<description>{{$t}}</description>{{end}}
+      {{- end}}
+    </item>
+    {{- end}}
+  </channel>
+</rss>
