@@ -1,0 +1,13 @@
+{{printf "i%*s\ttilde.institute\t70" 39 "-/-"}}
+{{printf "i%*s\ttilde.institute\t70" 57 "The Daily Nonsensical The Gazette Remix"}}
+{{printf "i%*s\ttilde.institute\t70" 39 "-*-"}}
+{{- range .List}}
+{{- $n := len (slice (printf "%*s" (len .Name) "") 4)}}
+{{- $basename := slice .Name 0 $n}}
+{{- $ext := slice .Name $n}}
+{{- if eq $ext ".xml"}}
+{{printf "0%*s%s\t%s" (len "0000-00-00") $basename (printf "%*d" 12 .Size) .Name}}
+{{- else}}
+{{printf "0%s%s\t%s" (.ModTime.Format "2006-01-02") (printf "%*d" 12 .Size) .Name}}
+{{- end}}
+{{- end}}
