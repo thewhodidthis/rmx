@@ -1,5 +1,4 @@
-Makefile
 .cvsignore
 *.txt
 *.xml*
-gophermap*
+gophermap
