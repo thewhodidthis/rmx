@@ -11,6 +11,6 @@ feed: x
 a:
 	@echo $$(find *.txt -exec sh -c 'sed -n 1p {} | xargs | sed "s/~ //" | sed "s/ ~//" | sed "s/\(.*\)/\"\1\"\ /g"' \; | tr -ds "\n" " " | sed "s/\(.*\)/{{- $$\a := list \1\-}}/") > a
 b:
-	@echo $$(find *.txt -exec sh -c 'sed -n 5,6p {} | tr -ds "\n" " " | sed "s/\(.*\)/\"\1...\"\ /g"' \; | sed "s/\(.*\)/{{- $$\b := list \1\-}}/") > b
+	@echo $$(find *.txt -exec sh -c 'sed -n 5,6p {} | tr -ds "\n" " " | sed s/\"//g  | sed "s/\(.*\)/\"\1...\"\ /g"' \; | sed "s/\(.*\)/{{- $$\b := list \1\-}}/") > b
 x: a b
 	cat a b feed.tmpl > c; mv c feed.xml.tmpl; rm -rf a b c
