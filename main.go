@@ -51,12 +51,23 @@ func init() {
 }
 
 func main() {
-	res, err := http.Get("https://www.thegazette.co.uk/all-notices/notice/data.feed")
-
+	req, err := http.NewRequest(
+		http.MethodGet,
+		"https://www.thegazette.co.uk/all-notices/notice/data.feed",
+		nil,
+	)
 	if err != nil {
 		log.Fatal(err)
 	}
 
+	req.Header.Set("Accept", "application/atom+xml")
+	req.Header.Set("From", "me@thewhodidthis.com")
+	req.Header.Set("User-Agent", "ErraticallyShiftingNonsensicalRemixJournal/1.0.0 (+gopher://tilde.institute/~thewhodidthis)")
+
+	res, err := http.DefaultClient.Do(req)
+	if err != nil {
+		log.Fatal(err)
+	}
 	defer res.Body.Close()
 
 	doc, err := io.ReadAll(res.Body)
