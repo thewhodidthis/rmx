@@ -51,7 +51,7 @@ func init() {
 }
 
 func main() {
-	res, err := http.Get("https://www.thegazette.co.uk/all-notices/data.feed?results-page=1")
+	res, err := http.Get("https://www.thegazette.co.uk/all-notices/notice/data.feed")
 
 	if err != nil {
 		log.Fatal(err)
