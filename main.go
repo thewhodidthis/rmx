@@ -46,10 +46,6 @@ type entry struct {
 	Content  content  `xml:"content"`
 }
 
-func init() {
-	rand.Seed(time.Now().UnixNano())
-}
-
 func main() {
 	req, err := http.NewRequest(
 		http.MethodGet,
